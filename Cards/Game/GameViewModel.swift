@@ -19,7 +19,7 @@ class GameViewModel {
     }
 
     let numColumns: Int = 3
-    var numRows: Int = 3
+    let numRows: Int = 3
 
     var gameHasFinished: AnyPublisher<Bool, Never> {
         stateSubject
