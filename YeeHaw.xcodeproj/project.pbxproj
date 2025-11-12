@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		A37C9A6C2E8F3D1A00B5B8BD /* Cards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A37C9A6C2E8F3D1A00B5B8BD /* YeeHaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YeeHaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A37C9A7E2E8F3D1C00B5B8BD /* Exceptions for "Cards" folder in "Cards" target */ = {
+		A37C9A7E2E8F3D1C00B5B8BD /* Exceptions for "YeeHaw" folder in "YeeHaw" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = A37C9A6B2E8F3D1A00B5B8BD /* Cards */;
+			target = A37C9A6B2E8F3D1A00B5B8BD /* YeeHaw */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A37C9A6E2E8F3D1A00B5B8BD /* Cards */ = {
+		A37C9A6E2E8F3D1A00B5B8BD /* YeeHaw */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				A37C9A7E2E8F3D1C00B5B8BD /* Exceptions for "Cards" folder in "Cards" target */,
+				A37C9A7E2E8F3D1C00B5B8BD /* Exceptions for "YeeHaw" folder in "YeeHaw" target */,
 			);
-			path = Cards;
+			path = YeeHaw;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +45,7 @@
 		A37C9A632E8F3D1A00B5B8BD = {
 			isa = PBXGroup;
 			children = (
-				A37C9A6E2E8F3D1A00B5B8BD /* Cards */,
+				A37C9A6E2E8F3D1A00B5B8BD /* YeeHaw */,
 				A37C9A6D2E8F3D1A00B5B8BD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		A37C9A6D2E8F3D1A00B5B8BD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A37C9A6C2E8F3D1A00B5B8BD /* Cards.app */,
+				A37C9A6C2E8F3D1A00B5B8BD /* YeeHaw.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A37C9A6B2E8F3D1A00B5B8BD /* Cards */ = {
+		A37C9A6B2E8F3D1A00B5B8BD /* YeeHaw */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A37C9A7F2E8F3D1C00B5B8BD /* Build configuration list for PBXNativeTarget "Cards" */;
+			buildConfigurationList = A37C9A7F2E8F3D1C00B5B8BD /* Build configuration list for PBXNativeTarget "YeeHaw" */;
 			buildPhases = (
 				A37C9A682E8F3D1A00B5B8BD /* Sources */,
 				A37C9A692E8F3D1A00B5B8BD /* Frameworks */,
@@ -74,13 +74,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				A37C9A6E2E8F3D1A00B5B8BD /* Cards */,
+				A37C9A6E2E8F3D1A00B5B8BD /* YeeHaw */,
 			);
-			name = Cards;
+			name = YeeHaw;
 			packageProductDependencies = (
 			);
 			productName = Cards;
-			productReference = A37C9A6C2E8F3D1A00B5B8BD /* Cards.app */;
+			productReference = A37C9A6C2E8F3D1A00B5B8BD /* YeeHaw.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A37C9A672E8F3D1A00B5B8BD /* Build configuration list for PBXProject "Cards" */;
+			buildConfigurationList = A37C9A672E8F3D1A00B5B8BD /* Build configuration list for PBXProject "YeeHaw" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A37C9A6B2E8F3D1A00B5B8BD /* Cards */,
+				A37C9A6B2E8F3D1A00B5B8BD /* YeeHaw */,
 			);
 		};
 /* End PBXProject section */
@@ -147,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KJ7YS82G45;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Cards/Info.plist;
+				INFOPLIST_FILE = YeeHaw/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = XO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -181,7 +181,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KJ7YS82G45;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Cards/Info.plist;
+				INFOPLIST_FILE = YeeHaw/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = XO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -332,7 +332,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A37C9A672E8F3D1A00B5B8BD /* Build configuration list for PBXProject "Cards" */ = {
+		A37C9A672E8F3D1A00B5B8BD /* Build configuration list for PBXProject "YeeHaw" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A37C9A822E8F3D1C00B5B8BD /* Debug */,
@@ -341,7 +341,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A37C9A7F2E8F3D1C00B5B8BD /* Build configuration list for PBXNativeTarget "Cards" */ = {
+		A37C9A7F2E8F3D1C00B5B8BD /* Build configuration list for PBXNativeTarget "YeeHaw" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A37C9A802E8F3D1C00B5B8BD /* Debug */,
