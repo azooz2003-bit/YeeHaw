@@ -31,4 +31,12 @@ extension UIImage {
     enum Characters {
         static let uppercase = UIImage(systemName: "characters.uppercase")!
     }
+
+    enum Character {
+        static let textbox = UIImage(systemName: "character.textbox")!
+    }
+
+    enum Clock {
+        static let fill = UIImage(systemName: "clock.fill")!
+    }
 }

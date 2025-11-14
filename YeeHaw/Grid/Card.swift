@@ -58,7 +58,7 @@ class Card: UIView {
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1), // Aspect ratio
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1), // 1:1 aspect ratio
             imageView.widthAnchor.constraint(equalToConstant: 18),
         ])
 
@@ -109,7 +109,8 @@ class Card: UIView {
             symbolLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             symbolLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             symbolLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
-            symbolLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0)
+            symbolLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
+            symbolLabel.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor)
         ])
     }
 
@@ -120,7 +121,7 @@ class Card: UIView {
         NSLayoutConstraint.activate([
             lockSymbol.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -lockPadding),
             lockSymbol.topAnchor.constraint(equalTo: containerView.topAnchor, constant: lockPadding),
-            lockSymbol.bottomAnchor.constraint(lessThanOrEqualTo: symbolLabel.topAnchor, constant: 2),
+            lockSymbol.bottomAnchor.constraint(lessThanOrEqualTo: symbolLabel.topAnchor, constant: -2),
         ])
     }
 

@@ -33,7 +33,7 @@ class GameViewController: UIViewController {
         setupSequenceBox()
     }
 
-    // MARK: UI Helpers
+    // MARK: Setup
 
     private func setupCards() {
         gameVM = GameViewModel()
@@ -50,7 +50,7 @@ class GameViewController: UIViewController {
             gridTopConstraint,
             gridVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             gridVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            gridVC.view.heightAnchor.constraint(equalToConstant: 420)
+            gridVC.view.widthAnchor.constraint(equalTo: gridVC.view.heightAnchor)
         ])
     }
 
@@ -75,11 +75,20 @@ class GameViewController: UIViewController {
         self.bottomPanelVC = BottomPanelViewController(gameVM: gameVM)
         bottomPanelVC.playAction = {
             self.gameVM.restartGame()
+            self.gameVM.generateSequences()
             self.prepareForGame()
         }
 
         bottomPanelVC.view.translatesAutoresizingMaskIntoConstraints = false
     }
+
+    private func setupSequenceBox() {
+        sequenceBox = YeeHawSequenceBox(gameVM: gameVM)
+
+        sequenceBox.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    // MARK: Update UI
 
     private func addBottomPanelToView() {
         self.addChild(bottomPanelVC)
@@ -93,20 +102,18 @@ class GameViewController: UIViewController {
         ])
     }
 
-    private func setupSequenceBox() {
-        sequenceBox = YeeHawSequenceBox(frame: .zero)
-
-        sequenceBox.translatesAutoresizingMaskIntoConstraints = false
-    }
-
     private func addSequenceBoxToView() {
         view.addSubview(sequenceBox)
+
+        let heightConstraint = sequenceBox.heightAnchor.constraint(equalToConstant: 115)
+        heightConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
             sequenceBox.topAnchor.constraint(equalTo: gridVC.view.bottomAnchor, constant: 5),
             sequenceBox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             sequenceBox.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            sequenceBox.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            sequenceBox.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            heightConstraint
         ])
     }
 
@@ -115,11 +122,11 @@ class GameViewController: UIViewController {
 
         self.bottomPanelVC.animateOutAndRemove()
 
+        self.presentSequenceBox()
+
         UIView.animate(withDuration: 0.6) {
             self.gridTopConstraint.constant = 50
             self.view.layoutIfNeeded()
-        } completion: { _ in
-            self.presentSequenceBox()
         }
     }
 
@@ -128,7 +135,7 @@ class GameViewController: UIViewController {
         addSequenceBoxToView()
 
         sequenceBox.transform = CGAffineTransform(scaleX: 0, y: 0)
-        UIView.animate(springDuration: 0.6, bounce: 0.3) {
+        UIView.animate(springDuration: 0.6, bounce: 0.3, delay: 0.3) {
             sequenceBox.transform = .identity
         } completion: { _ in
             // TODO: start game timer
