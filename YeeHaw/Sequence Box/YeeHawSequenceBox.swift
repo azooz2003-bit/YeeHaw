@@ -12,13 +12,12 @@ class YeeHawSequenceBox: UIView {
 
     private lazy var container: UIVisualEffectView = {
         let view = UIVisualEffectView()
-        view.layer.cornerRadius = 10
+        view.cornerConfiguration = .corners(radius: 10)
         view.clipsToBounds = true
-        if #available(iOS 26.0, *) {
-            view.effect = UIGlassEffect(style: .clear)
-        } else {
-            view.backgroundColor = .white.withProminence(.secondary)
-        }
+        let effect = UIGlassEffect(style: .regular)
+        effect.isInteractive = true
+        effect.tintColor = .brown
+        view.effect = effect
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -29,7 +28,7 @@ class YeeHawSequenceBox: UIView {
         button.addAction(UIAction { [weak self] _ in
             self?.handleViewModeToggle()
         }, for: .touchUpInside)
-        button.contentHorizontalAlignment = .trailing
+        button.contentHorizontalAlignment = .center
 
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -110,9 +109,11 @@ class YeeHawSequenceBox: UIView {
         displayAll = true
 
         NSLayoutConstraint.activate([
-            viewModeButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
-            viewModeButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -5),
-            viewModeButton.widthAnchor.constraint(equalToConstant: 20)
+            viewModeButton.topAnchor.constraint(equalTo: container.topAnchor),
+            viewModeButton.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            // Setting larger height to allow for larger tap radius
+            viewModeButton.widthAnchor.constraint(equalToConstant: 40),
+            viewModeButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
@@ -208,7 +209,7 @@ extension YeeHawSequenceBox: UICollectionViewDataSource {
 
 #Preview {
     let view = UIView()
-    view.backgroundColor = .red
+    view.backgroundColor = .black
     view.frame = .init(x: 0, y: 0, width: 500, height: 500)
 
     let vm =  GameViewModel()

@@ -21,13 +21,12 @@ class GameInfoView: UIView {
     }()
 
     private var timer: Timer?
-    private(set) var timeRemainingInSeconds: Int = 60 {
+    private(set) var timeRemainingInSeconds: TimeInterval = 60 {
         didSet {
             // TODO: optimize, avoid recreation of attr string each time
-            let asInterval = TimeInterval(timeRemainingInSeconds)
             let attrString = NSMutableAttributedString(attachment: .init(image: .Clock.fill))
 
-            guard let timerStr = dateFormatter.string(from: asInterval) else {
+            guard let timerStr = dateFormatter.string(from: timeRemainingInSeconds) else {
                 return
             }
 
@@ -35,8 +34,36 @@ class GameInfoView: UIView {
             timerLabel.attributedText = attrString
         }
     }
+    private var timerLabel: UILabel = {
+        let timerLabel = UILabel()
+        timerLabel.textColor = .white
+        timerLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        timerLabel.numberOfLines = 1
+        return timerLabel
+    }()
 
-    private var timerLabel: UILabel!
+    private var activeSymbolView: UIView = {
+        let view = UIView()
+        view.cornerConfiguration = .capsule()
+        view.backgroundColor = .gray.withProminence(.secondary)
+
+        return view
+    }()
+    private lazy var activeSymbolLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.textColor = .white
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 18, weight: .medium)
+        return label
+    }()
+    private var activeSymbol: CardSymbol? {
+        didSet {
+            activeSymbolLabel.text = activeSymbol?.rawValue ?? "???"
+            activeSymbolView.backgroundColor = activeSymbol?.color.withProminence(.secondary)
+        }
+    }
 
     weak var delegate: GameInfoViewDelegate?
 
@@ -60,11 +87,6 @@ class GameInfoView: UIView {
     }
 
     private func setupTimerLabel() {
-        timerLabel = UILabel()
-        timerLabel.textColor = .white
-        timerLabel.font = .systemFont(ofSize: 14, weight: .medium)
-        timerLabel.numberOfLines = 1
-
         timeRemainingInSeconds = 60
 
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -79,12 +101,34 @@ class GameInfoView: UIView {
     }
 
     private func setupActiveSymbolView() {
+        addSubview(activeSymbolView)
+        activeSymbolView.translatesAutoresizingMaskIntoConstraints = false
 
+        NSLayoutConstraint.activate([
+            activeSymbolView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 8),
+            activeSymbolView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            activeSymbolView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            activeSymbolView.heightAnchor.constraint(equalToConstant: 40),
+            activeSymbolView.widthAnchor.constraint(equalTo: activeSymbolView.heightAnchor)
+        ])
+
+        activeSymbolView.addSubview(activeSymbolLabel)
+
+        activeSymbolLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            activeSymbolLabel.centerXAnchor.constraint(equalTo: activeSymbolView.centerXAnchor),
+            activeSymbolLabel.centerYAnchor.constraint(equalTo: activeSymbolView.centerYAnchor),
+            activeSymbolLabel.leadingAnchor.constraint(greaterThanOrEqualTo: activeSymbolView.leadingAnchor, constant: 4),
+            activeSymbolLabel.trailingAnchor.constraint(lessThanOrEqualTo: activeSymbolView.trailingAnchor, constant: -4),
+            activeSymbolLabel.bottomAnchor.constraint(lessThanOrEqualTo: activeSymbolView.bottomAnchor, constant: -4),
+            activeSymbolLabel.topAnchor.constraint(greaterThanOrEqualTo: activeSymbolView.topAnchor, constant: 4)
+        ])
     }
 
-    func startTimer(forDuration duration: TimeInterval) {
+    func startTimer(forSeconds duration: TimeInterval) {
         timer?.invalidate()
-        timeRemainingInSeconds = 60 // 1 min
+        timeRemainingInSeconds = duration // 1 min
 
         timer = Timer(timeInterval: 1.0, repeats: true) { timer in
             self.timeRemainingInSeconds -= 1
@@ -97,6 +141,13 @@ class GameInfoView: UIView {
     }
 
     func setActiveSymbol(_ symbol: CardSymbol) {
-
+        activeSymbol = symbol
     }
+}
+
+#Preview {
+    let view = GameInfoView()
+    view.setActiveSymbol(.haw)
+    view.startTimer(forSeconds: 60)
+    return view
 }

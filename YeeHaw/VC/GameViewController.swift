@@ -15,7 +15,8 @@ class GameViewController: UIViewController {
     var gridVC: GridViewControlling!
     var bottomPanelVC: BottomPanelViewController!
 
-    var sequenceBox: YeeHawSequenceBox!
+    lazy var sequenceBox = YeeHawSequenceBox(gameVM: gameVM)
+    lazy var gameInfoView = GameInfoView()
 
     // MARK: Constraints
     var gridTopConstraint: NSLayoutConstraint!
@@ -30,7 +31,13 @@ class GameViewController: UIViewController {
         setupAccessories()
         setupBottomPanel()
         addBottomPanelToView()
-        setupSequenceBox()
+
+        gameVM.activeSymbolSubject.sink { [weak self] symbol in
+            UIView.animate(withDuration: 0.2) {
+                self?.gameInfoView.setActiveSymbol(symbol)
+            }
+        }
+        .store(in: &cancellables)
     }
 
     // MARK: Setup
@@ -82,12 +89,6 @@ class GameViewController: UIViewController {
         bottomPanelVC.view.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    private func setupSequenceBox() {
-        sequenceBox = YeeHawSequenceBox(gameVM: gameVM)
-
-        sequenceBox.translatesAutoresizingMaskIntoConstraints = false
-    }
-
     // MARK: Update UI
 
     private func addBottomPanelToView() {
@@ -104,8 +105,9 @@ class GameViewController: UIViewController {
 
     private func addSequenceBoxToView() {
         view.addSubview(sequenceBox)
+        sequenceBox.translatesAutoresizingMaskIntoConstraints = false
 
-        let heightConstraint = sequenceBox.heightAnchor.constraint(equalToConstant: 115)
+        let heightConstraint = sequenceBox.heightAnchor.constraint(equalToConstant: 60)
         heightConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
@@ -117,12 +119,24 @@ class GameViewController: UIViewController {
         ])
     }
 
+    private func addGameInfoToView() {
+        view.addSubview(gameInfoView)
+        gameInfoView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            gameInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            gameInfoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            gameInfoView.bottomAnchor.constraint(lessThanOrEqualTo: gridVC.view.topAnchor, constant: -20),
+        ])
+    }
+
     private func prepareForGame() {
-        self.navigationItem.setRightBarButton(UIBarButtonItem(title: nil, image: .init(systemName: "ellipsis"), target: nil, action: nil), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(title: nil, image: .ellipsis, target: nil, action: nil), animated: true)
 
         self.bottomPanelVC.animateOutAndRemove()
 
         self.presentSequenceBox()
+        self.presentGameInfoView()
 
         UIView.animate(withDuration: 0.6) {
             self.gridTopConstraint.constant = 50
@@ -138,8 +152,24 @@ class GameViewController: UIViewController {
         UIView.animate(springDuration: 0.6, bounce: 0.3, delay: 0.3) {
             sequenceBox.transform = .identity
         } completion: { _ in
-            // TODO: start game timer
+            self.gameInfoView.startTimer(forSeconds: 60)
         }
+    }
+
+    private func presentGameInfoView() {
+        addGameInfoToView()
+        gameInfoView.setActiveSymbol(gameVM.activeSymbol)
+
+        gameInfoView.transform = CGAffineTransform(translationX: -3, y: 0)
+        UIView.animate(withDuration: 0.4) {
+            self.gameInfoView.transform = .identity
+        }
+    }
+}
+
+extension GameViewController: GameInfoViewDelegate {
+    func timerDidFinish() {
+        // TODO: transition to end game screen
     }
 }
 

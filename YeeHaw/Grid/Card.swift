@@ -147,13 +147,8 @@ extension Card {
     func configure(with cardSymbol: CardSymbol?) {
         self.symbol = cardSymbol
         self.symbolLabel.text = cardSymbol?.label
-        if cardSymbol == .haw {
-            self.containerView.backgroundColor = .systemYellow.withProminence(.secondary)
-        } else if cardSymbol == .yee {
-            self.containerView.backgroundColor = .systemOrange.withProminence(.secondary)
-        } else {
-            self.containerView.backgroundColor = .white.withProminence(.secondary)
-        }
+
+        self.containerView.backgroundColor = cardSymbol?.color.withProminence(.secondary) ?? .white.withProminence(.secondary)
 
         animateLocked()
     }

@@ -39,4 +39,6 @@ extension UIImage {
     enum Clock {
         static let fill = UIImage(systemName: "clock.fill")!
     }
+
+    static let ellipsis = UIImage(systemName: "ellipsis")!
 }

@@ -17,4 +17,6 @@ extension UIColor {
             alpha: 1.0
         )
     }
+
+    // TODO: make a variant with that yields an array with enough variance in color
 }
