@@ -108,7 +108,7 @@ class GameInfoView: UIView {
             activeSymbolView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 8),
             activeSymbolView.leadingAnchor.constraint(equalTo: leadingAnchor),
             activeSymbolView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            activeSymbolView.heightAnchor.constraint(equalToConstant: 40),
+            activeSymbolView.heightAnchor.constraint(equalToConstant: 50),
             activeSymbolView.widthAnchor.constraint(equalTo: activeSymbolView.heightAnchor)
         ])
 
@@ -117,12 +117,10 @@ class GameInfoView: UIView {
         activeSymbolLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            activeSymbolLabel.centerXAnchor.constraint(equalTo: activeSymbolView.centerXAnchor),
-            activeSymbolLabel.centerYAnchor.constraint(equalTo: activeSymbolView.centerYAnchor),
-            activeSymbolLabel.leadingAnchor.constraint(greaterThanOrEqualTo: activeSymbolView.leadingAnchor, constant: 4),
-            activeSymbolLabel.trailingAnchor.constraint(lessThanOrEqualTo: activeSymbolView.trailingAnchor, constant: -4),
-            activeSymbolLabel.bottomAnchor.constraint(lessThanOrEqualTo: activeSymbolView.bottomAnchor, constant: -4),
-            activeSymbolLabel.topAnchor.constraint(greaterThanOrEqualTo: activeSymbolView.topAnchor, constant: 4)
+            activeSymbolLabel.leadingAnchor.constraint(equalTo: activeSymbolView.leadingAnchor, constant: 6),
+            activeSymbolLabel.trailingAnchor.constraint(equalTo: activeSymbolView.trailingAnchor, constant: -6),
+            activeSymbolLabel.bottomAnchor.constraint(equalTo: activeSymbolView.bottomAnchor, constant: -6),
+            activeSymbolLabel.topAnchor.constraint(equalTo: activeSymbolView.topAnchor, constant: 6)
         ])
     }
 

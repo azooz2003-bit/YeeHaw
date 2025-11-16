@@ -14,9 +14,7 @@ class YeeHawSequenceBox: UIView {
         let view = UIVisualEffectView()
         view.cornerConfiguration = .corners(radius: 10)
         view.clipsToBounds = true
-        let effect = UIGlassEffect(style: .regular)
-        effect.isInteractive = true
-        effect.tintColor = .brown
+        let effect = UIGlassEffect(style: .clear)
         view.effect = effect
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

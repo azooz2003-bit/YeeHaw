@@ -60,7 +60,7 @@ class TransitionCoordinator: NSObject {
 
         homeVC.bottomPanelVC.animateOut()
 
-        gameVC.gameInfoView.transform = CGAffineTransform(translationX: -30, y: 0)
+        gameVC.gameInfoView.transform = CGAffineTransform(translationX: -80, y: 0)
         UIView.animate(withDuration: 0.4) {
             gameVC.gameInfoView.transform = .identity
         }
@@ -71,7 +71,7 @@ class TransitionCoordinator: NSObject {
         }
 
         gameVC.sequenceBox.transform = CGAffineTransform(scaleX: 0, y: 0) // => .identity
-        UIView.animate(springDuration: 0.6, bounce: 0.3, delay: 0.3) {
+        UIView.animate(springDuration: 0.6, bounce: 0.4, delay: 0.2) {
             gameVC.sequenceBox.transform = .identity
         } completion: { _ in
             // Undo all changes post-animation
