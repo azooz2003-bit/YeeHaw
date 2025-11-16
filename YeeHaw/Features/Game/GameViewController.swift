@@ -52,6 +52,11 @@ class GameViewController: UIViewController {
         .store(in: &cancellables)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        gameInfoView.startTimer(forSeconds: 60)
+    }
+
     // MARK: Setup
 
     private func setupCards() {

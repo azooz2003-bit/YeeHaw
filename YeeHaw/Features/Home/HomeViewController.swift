@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
 
         gridVC.view.translatesAutoresizingMaskIntoConstraints = false
 
-        gridTopConstraint =             gridVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.gridTopPadding)
+        gridTopConstraint = gridVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.gridTopPadding)
 
         NSLayoutConstraint.activate([
             gridTopConstraint,

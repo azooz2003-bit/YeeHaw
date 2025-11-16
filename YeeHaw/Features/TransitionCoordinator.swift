@@ -74,8 +74,6 @@ class TransitionCoordinator: NSObject {
             homeVC.bottomPanelVC.undoAnimation()
 
             context.completeTransition(!context.transitionWasCancelled)
-
-            gameVC.gameInfoView.startTimer(forSeconds: 60)
         }
     }
 }
