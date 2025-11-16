@@ -46,6 +46,12 @@ class TransitionCoordinator: NSObject {
         let container = context.containerView
 
         container.addSubview(gameVC.view)
+
+        guard context.isAnimated else {
+            context.completeTransition(true)
+            return
+        }
+
         homeVC.gridVC.view.isHidden = true
         gameVC.gridTopConstraint.constant = HomeViewController.Constants.gridTopPadding
         container.layoutIfNeeded()
