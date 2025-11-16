@@ -44,7 +44,9 @@ class Card: UIView {
         return label
     }()
     private var containerView: UIView = {
-        let view = UIView()
+        let glass = UIGlassEffect(style: .clear)
+        glass.isInteractive = true
+        let view = UIVisualEffectView(effect: glass)
         view.layer.cornerRadius = 12
 
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -148,7 +150,7 @@ extension Card {
         self.symbol = cardSymbol
         self.symbolLabel.text = cardSymbol?.label
 
-        self.containerView.backgroundColor = cardSymbol?.color.withProminence(.secondary) ?? .white.withProminence(.secondary)
+        self.containerView.backgroundColor = cardSymbol?.color.withProminence(.secondary) ?? nil
 
         animateLocked()
     }
@@ -237,6 +239,12 @@ extension Card: UIGestureRecognizerDelegate {
     }
 
     private func animateExpansion() {
+        if let rowStackView = self.superview, let gridStackView = rowStackView.superview?.superview {
+            rowStackView.bringSubviewToFront(self)
+            gridStackView.bringSubviewToFront(rowStackView)
+            layoutIfNeeded()
+        }
+
         UIView.animate(springDuration: 0.3) {
             containerConstraints.changeTo(10)
             self.layoutIfNeeded()

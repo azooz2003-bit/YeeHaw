@@ -80,7 +80,7 @@ class GameViewController: UIViewController {
         view.addSubview(sequenceBox)
         sequenceBox.translatesAutoresizingMaskIntoConstraints = false
 
-        let heightConstraint = sequenceBox.heightAnchor.constraint(equalToConstant: 60)
+        let heightConstraint = sequenceBox.heightAnchor.constraint(equalToConstant: 100)
         heightConstraint.priority = .defaultHigh
 
         NSLayoutConstraint.activate([
