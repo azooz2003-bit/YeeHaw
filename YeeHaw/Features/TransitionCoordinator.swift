@@ -47,7 +47,7 @@ class TransitionCoordinator: NSObject {
 
         container.addSubview(gameVC.view)
         homeVC.gridVC.view.isHidden = true
-        gameVC.gridTopConstraint.constant = 0
+        gameVC.gridTopConstraint.constant = HomeViewController.Constants.gridTopPadding
         container.layoutIfNeeded()
 
         gameVC.view.backgroundColor = .clear
@@ -60,7 +60,7 @@ class TransitionCoordinator: NSObject {
         }
 
         UIView.animate(withDuration: 0.8) {
-            gameVC.gridTopConstraint.constant = 50
+            gameVC.gridTopConstraint.constant = GameViewController.Constants.gridTopPadding
             gameVC.view.layoutIfNeeded()
         }
 
