@@ -41,4 +41,8 @@ extension UIImage {
     }
 
     static let ellipsis = UIImage(systemName: "ellipsis")!
+
+    enum Alarm {
+        static let fill: UIImage = UIImage(systemName: "alarm.fill")!
+    }
 }
