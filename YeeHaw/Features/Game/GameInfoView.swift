@@ -130,9 +130,9 @@ class GameInfoView: UIView {
         timer?.invalidate()
         timeRemainingInSeconds = duration // 1 min
 
-        timer = Timer(timeInterval: 1.0, repeats: true) { timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             self.timeRemainingInSeconds -= 1
-            guard self.timeRemainingInSeconds > 0 else {
+            if self.timeRemainingInSeconds <= 0 {
                 timer.invalidate()
                 self.delegate?.timerDidFinish()
                 return
