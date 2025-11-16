@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var transitionCoordinator: TransitionCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,7 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-        let navController = UINavigationController(rootViewController: GameViewController())
+        transitionCoordinator = TransitionCoordinator()
+
+        let navController = UINavigationController(rootViewController: HomeViewController())
+        navController.delegate = transitionCoordinator
+
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
@@ -56,6 +61,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 #Preview {
-    let navController = UINavigationController(rootViewController: GameViewController())
+    let navController = UINavigationController(rootViewController: HomeViewController())
     return navController
 }

@@ -134,7 +134,7 @@ class BottomPanelViewController: UIViewController {
         ])
     }
 
-    func animateOutAndRemove() {
+    func animateOut() {
         UIView.animate(withDuration: 0.6) {
             self.evenSymbolSection.transform = CGAffineTransform(translationX: -150, y: 0)
             self.evenSymbolSection.layer.opacity = 0.0
@@ -144,11 +144,19 @@ class BottomPanelViewController: UIViewController {
 
             self.rolesToggle.layer.opacity = 0.0
 
-            self.playButton.transform = CGAffineTransform(translationX: 0, y: 250)
-
-        } completion: { finished in
-            self.view.removeFromSuperview()
-            self.removeFromParent()
+            self.playButton.transform = CGAffineTransform(translationX: 0, y: 280)
         }
+    }
+
+    func undoAnimation() {
+        self.evenSymbolSection.transform = .identity
+        self.evenSymbolSection.layer.opacity = 1.0
+
+        self.oddSymbolSection.transform = .identity
+        self.oddSymbolSection.layer.opacity = 1.0
+
+        self.rolesToggle.layer.opacity = 1.0
+
+        self.playButton.transform = .identity
     }
 }
