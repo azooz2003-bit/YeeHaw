@@ -24,7 +24,7 @@ class GameInfoView: UIView {
     private(set) var timeRemainingInSeconds: TimeInterval = 60 {
         didSet {
             // TODO: optimize, avoid recreation of attr string each time
-            let attrString = NSMutableAttributedString(attachment: .init(image: .Clock.fill))
+            let attrString = NSMutableAttributedString(attachment: .init(image: .Alarm.fill))
 
             guard let timerStr = dateFormatter.string(from: timeRemainingInSeconds) else {
                 return
@@ -65,6 +65,14 @@ class GameInfoView: UIView {
         }
     }
 
+    // MARK: Public
+    var placeholderTime: TimeInterval! {
+        didSet {
+            if timerLabel.text == nil {
+                timeRemainingInSeconds = placeholderTime
+            }
+        }
+    }
     weak var delegate: GameInfoViewDelegate?
 
     override init(frame: CGRect) {
@@ -78,6 +86,7 @@ class GameInfoView: UIView {
     }
 
     private func commonInit() {
+        self.placeholderTime = 60
         setupTimerLabel()
         setupActiveSymbolView()
     }

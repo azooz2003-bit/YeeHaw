@@ -10,7 +10,7 @@ import Combine
 
 class GameViewController: UIViewController {
     enum Constants {
-        static let gridTopPadding: CGFloat = 50
+        static let gridTopPadding: CGFloat = 30
         static let sequenceBoxTopPadding: CGFloat = 5
     }
     var gameVM: GameViewModel
@@ -40,9 +40,9 @@ class GameViewController: UIViewController {
         view.backgroundColor = .systemBrown
         navigationItem.hidesBackButton = true
 
+        setupGameInfo()
         setupCards()
         setupSequenceBox()
-        setupGameInfo()
 
         gameVM.activeSymbolSubject.sink { [weak self] symbol in
             UIView.animate(withDuration: 0.2) {
@@ -59,13 +59,26 @@ class GameViewController: UIViewController {
 
     // MARK: Setup
 
+    private func setupGameInfo() {
+        gameInfoView.setActiveSymbol(gameVM.activeSymbol)
+        gameInfoView.placeholderTime = 60
+
+        view.addSubview(gameInfoView)
+        gameInfoView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            gameInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            gameInfoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+        ])
+    }
+
     private func setupCards() {
         addChild(gridVC)
         view.addSubview(gridVC.view)
 
         gridVC.view.translatesAutoresizingMaskIntoConstraints = false
 
-        gridTopConstraint = gridVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.gridTopPadding)
+        gridTopConstraint = gridVC.view.topAnchor.constraint(equalTo: gameInfoView.bottomAnchor, constant: Constants.gridTopPadding)
         NSLayoutConstraint.activate([
             gridTopConstraint,
             gridVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -73,8 +86,6 @@ class GameViewController: UIViewController {
             gridVC.view.widthAnchor.constraint(equalTo: gridVC.view.heightAnchor)
         ])
     }
-
-    // MARK: Update UI
 
     private func setupSequenceBox() {
         view.addSubview(sequenceBox)
@@ -91,23 +102,20 @@ class GameViewController: UIViewController {
             heightConstraint
         ])
     }
-
-    private func setupGameInfo() {
-        gameInfoView.setActiveSymbol(gameVM.activeSymbol)
-
-        view.addSubview(gameInfoView)
-        gameInfoView.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            gameInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            gameInfoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-            gameInfoView.bottomAnchor.constraint(lessThanOrEqualTo: gridVC.view.topAnchor, constant: -20),
-        ])
-    }
 }
 
 extension GameViewController: GameInfoViewDelegate {
     func timerDidFinish() {
         // TODO: transition to game over
     }
+}
+
+#Preview {
+    let vm = GameViewModel()
+    let gameVC = GameViewController(gameVM: vm)
+    vm.generateSequences()
+    vm.restartGame()
+    vm.selectCard(at: .init(item: 4, section: 0))
+
+    return gameVC
 }

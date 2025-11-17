@@ -60,7 +60,6 @@ class HomeViewController: UIViewController {
 
             let gameVC = GameViewController(gameVM: self.gameVM)
             self.navigationController?.pushViewController(gameVC, animated: true)
-            // TODO: transiton to game
         }
 
         bottomPanelVC.view.translatesAutoresizingMaskIntoConstraints = false
