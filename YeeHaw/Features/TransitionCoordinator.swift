@@ -13,12 +13,10 @@ class TransitionCoordinator: NSObject {
         case game = "GameViewController"
     }
 
-    private var operation: UINavigationController.Operation = .push
-
     private func duration(from fromScreen: Screen, to toScreen: Screen) -> TimeInterval {
         switch (fromScreen, toScreen) {
         // TODO: remove default & implement for all screens
-        default: 1.0
+        default: 0.8
         }
     }
 
@@ -46,32 +44,34 @@ class TransitionCoordinator: NSObject {
         let container = context.containerView
 
         container.addSubview(gameVC.view)
+        gameVC.view.frame = homeVC.view.frame
+        container.layoutIfNeeded() // to get latest frames (`gameVC.gridVC` in particular)
 
         guard context.isAnimated else {
             context.completeTransition(true)
             return
         }
 
+        let gridFinalFrame = gameVC.gridVC.view.frame
+        gameVC.gridVC.view.frame = homeVC.gridVC.view.frame
         homeVC.gridVC.view.isHidden = true
-        gameVC.gridTopConstraint.constant = HomeViewController.Constants.gridTopPadding
-        container.layoutIfNeeded()
 
         gameVC.view.backgroundColor = .clear
 
         homeVC.bottomPanelVC.animateOut()
 
         gameVC.gameInfoView.transform = CGAffineTransform(translationX: -80, y: 0)
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(springDuration: 0.6, bounce: 0.4) {
             gameVC.gameInfoView.transform = .identity
         }
 
         UIView.animate(withDuration: 0.8) {
-            gameVC.gridTopConstraint.constant = GameViewController.Constants.gridTopPadding
+            gameVC.gridVC.view.frame = gridFinalFrame
             gameVC.view.layoutIfNeeded()
         }
 
         gameVC.sequenceBox.transform = CGAffineTransform(scaleX: 0, y: 0) // => .identity
-        UIView.animate(springDuration: 0.6, bounce: 0.4, delay: 0.2) {
+        UIView.animate(springDuration: 0.6, bounce: 0.4) {
             gameVC.sequenceBox.transform = .identity
         } completion: { _ in
             // Undo all changes post-animation
@@ -111,9 +111,12 @@ extension TransitionCoordinator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-extension TransitionCoordinator: UINavigationControllerDelegate {
+extension TransitionCoordinator: UINavigationControllerDelegate, UIViewControllerTransitioningDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
-        self.operation = operation
+        return self
+    }
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
         return self
     }
 }
